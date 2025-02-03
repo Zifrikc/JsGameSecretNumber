@@ -58,7 +58,7 @@ function reiniciarJuego() {
 
 condicionesIniciales();
 
-// METODOS ADICIONALES
+// METODOS ADICIONALES del juego
 function numeroFactorial() {
     let numero = parseInt(document.getElementById('numero').value);
     let factorial = 1;
