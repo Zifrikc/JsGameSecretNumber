@@ -58,3 +58,54 @@ function obtenerMaximoYMinimo() {
     console.log("Número mínimo:", minimo);  // Imprime el número mínimo
 }
 
+function sumaElementos(){
+    let listaNumeros = [2, 6, 9, 5, 1, 9];
+    let sumaTotal = listaNumeros.reduce(function(a, b) {
+        return a + b;
+    });
+    console.log(sumaTotal);// Imprime la suma total de los elementos de la lista
+};
+
+function buscarElemento(elemento){
+    let listaNumeros = [2, 6, 9, 5, 1, 9];
+    let indice = listaNumeros.indexOf(elemento);
+    if (indice > -1) {
+        console.log("El elemento", elemento, "se encuentra en la posición", indice);
+    } else {
+        console.log("El elemento", elemento, "no se encuentra en la lista");
+    }
+};
+
+function sumarListas(lista1, lista2){
+    let listaSuma = [];
+    for (let i = 0; i < lista1.length; i++) {
+        listaSuma.push(lista1[i] + lista2[i]);
+    }
+    console.log(listaSuma);
+}
+function sumaDeListas(){
+    let lista1 = [1, 2, 3, 4, 5];
+    let lista2 = [6, 7, 8, 9, 10];
+    let i = 0;
+    let listaSuma = [];
+    while (i < lista1.length) {
+        listaSuma.push(lista1[i] + lista2[i]);
+        i++;
+    }
+};
+
+function listaCuadrado(){
+    let listaNumeros = [1,2,3,4,5,7,21];
+    let resultadoLista=[];
+    while(listaNumeros.length){
+        let numero = listaNumeros.shift();
+        resultadoLista.push(numero*numero);
+    }
+    console.log(resultadoLista);
+     resultadoLista = listaNumeros.reduce(function(a, b) {
+        return a * b;
+    });
+    console.log(resultadoLista);
+};
+
+listaCuadrado();

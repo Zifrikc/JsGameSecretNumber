@@ -2,7 +2,7 @@ let intentos = 0;
 let listaNumerosSorteados = [];
 let numeroMaximo = 10;
 let numeroSecreto = generarNumeroSecreto();
-let 
+
 
 function asignarTextoElemento(elemento, texto) {
     let elementoHTML = document.querySelector(elemento);
@@ -129,6 +129,18 @@ function obtenerMaximoYMinimo() {
     console.log("Número máximo:", maximo);  // Imprime el número máximo
     console.log("Número mínimo:", minimo);  // Imprime el número mínimo
 }
+
+function listaCuadrado(){
+    let listaNumeros = [1,2,3,4,5,7,21];
+    //let resultadoLista=[];
+    let resultadoLista2 = listaNumeros.map(function(num) {
+        return num * num;
+    });
+
+    console.log(resultadoLista2);
+};
+
+listaCuadrado();
 
 mostrarNumerosMaximoMinimo();
 obtenerMaximoYMinimo();
