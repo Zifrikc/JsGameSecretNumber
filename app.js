@@ -1,6 +1,8 @@
-let numeroSecreto = generarNumeroSecreto();
 let intentos = 0;
-
+let listaNumerosSorteados = [];
+let numeroMaximo = 10;
+let numeroSecreto = generarNumeroSecreto();
+let 
 
 function asignarTextoElemento(elemento, texto) {
     let elementoHTML = document.querySelector(elemento);
@@ -32,13 +34,23 @@ function limpiarCaja() {
 }
 
 function generarNumeroSecreto() {
-    return Math.floor(Math.random()*10)+1;
-
+    let numeroGenerado = Math.floor(Math.random()*numeroMaximo)+1;
+    if (listaNumerosSorteados.length === numeroMaximo) {
+        
+        asignarTextoElemento('p','Ya se sortearon todos los números posibles');
+    }else{
+        if(listaNumerosSorteados.includes(numeroGenerado)){
+            return generarNumeroSecreto();
+        } else {
+            listaNumerosSorteados.push(numeroGenerado);
+            return numeroGenerado;
+        }
+    }
 }
 
 function condicionesIniciales() {
     asignarTextoElemento('h1','Juego del número secreto!');
-    asignarTextoElemento('p',`Indica un número del 1 al 10`);
+    asignarTextoElemento('p',`Indica un número del 1 al ${numeroMaximo}`);
     numeroSecreto = generarNumeroSecreto();
     intentos = 1;
     console.log(numeroSecreto);
