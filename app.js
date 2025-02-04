@@ -95,3 +95,28 @@ function numeroTablaMultiplicar(numeroTabla){
         i++;
     }
 }
+
+function mostrarNumerosMaximoMinimo(){
+    let listaNumero=[2,7,8,9,22,45];
+    let maximo = Math.max.apply(null, listaNumero);
+    let minimo = Math.min.apply(null, listaNumero);
+    console.log("El número máximo es: " + maximo);
+    console.log("El número mínimo es: " + minimo);
+
+};
+
+function obtenerMaximoYMinimo() {
+    let listaNumeros = [2, 6, 9, 5, 1, 9];
+
+    // Usamos Math.max() con el operador de expansión para obtener el valor máximo
+    let maximo = Math.max(...listaNumeros);
+
+    // Usamos Math.min() con el operador de expansión para obtener el valor mínimo
+    let minimo = Math.min(...listaNumeros);
+
+    console.log("Número máximo:", maximo);  // Imprime el número máximo
+    console.log("Número mínimo:", minimo);  // Imprime el número mínimo
+}
+
+mostrarNumerosMaximoMinimo();
+obtenerMaximoYMinimo();
