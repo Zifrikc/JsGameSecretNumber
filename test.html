@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loot System Game</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .game-container {
+            max-width: 800px;
+            margin: 20px;
+        }
+
+        .board {
+            width: 800px;
+            height: 600px;
+            background-color: #808080;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .character {
+            width: 150px;
+            height: 150px;
+            position: absolute;
+            border-radius: 10px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            transition: transform 0.3s ease-in-out; /* Smooth animation */
+        }
+
+        .character1 {
+            background-image: url('/img/pj1.png');
+        }
+
+        .character2 {
+            background-image: url('/img/pj2.png');
+        }
+
+        .health, .mana {
+            position: absolute;
+            top: -40px;
+            width: 100%;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .mana {
+            top: auto;
+            bottom: -40px;
+        }
+
+        /* Character stats container */
+        .stats {
+            position: absolute;
+            bottom: -70px;
+            width: 100%;
+            text-align: center;
+            font-size: 16px;
+            font-weight: normal;
+            color: white;
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .attack-btn {
+            background-color: #ff4444;
+            color: white;
+        }
+
+        .defense-btn {
+            background-color: #228B22;
+            color: white;
+        }
+
+        .swap-btn {
+            background-color: #333333;
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes attackAnimation {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes defendAnimation {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.9); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Loot System Game</h1>
+        <div class="controls">
+            <button class="attack-btn" onclick="attackOther()">Attack</button>
+            <button class="defense-btn" onclick="defenseOther()">Defense</button>
+            <button class="swap-btn" onclick="swapFigures()">Swap</button>
+        </div>
+        <div class="board">
+            <!-- Attacker -->
+            <div class="character character1" id="attacker" style="top: 100px; left: 100px;">
+                <div class="stats" id="attacker-stats">
+                    Health: <span id="attacker-health">100</span><br>
+                    Attack: <span id="attacker-attack">10</span><br>
+                    Defense: <span id="attacker-defense">10</span>
+                </div>
+            </div>
+            <!-- Defender -->
+            <div class="character character2" id="defender" style="top: 100px; left: 500px;">
+                <div class="stats" id="defender-stats">
+                    Health: <span id="defender-health">100</span><br>
+                    Attack: <span id="defender-attack">10</span><br>
+                    Defense: <span id="defender-defense">10</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let attacker = document.getElementById('attacker');
+        let defender = document.getElementById('defender');
+
+        // Character properties
+        const attackerData = {
+            name: 'Attacker',
+            attack: 10,
+            defense: 10,
+            health: 100
+        };
+
+        const defenderData = {
+            name: 'Defender',
+            attack: 10,
+            defense: 10,
+            health: 100
+        };
+
+        // Function to update the stats on the screen
+        function updateStats() {
+            document.getElementById('attacker-health').textContent = attackerData.health;
+            document.getElementById('attacker-attack').textContent = attackerData.attack;
+            document.getElementById('attacker-defense').textContent = attackerData.defense;
+
+            document.getElementById('defender-health').textContent = defenderData.health;
+            document.getElementById('defender-attack').textContent = defenderData.attack;
+            document.getElementById('defender-defense').textContent = defenderData.defense;
+        }
+
+        function updateFigures() {
+            // Update the health and mana based on game logic
+            attacker.style.transition = 'all 0.5s ease';
+            defender.style.transition = 'all 0.5s ease';
+        }
+
+        function attackOther() {
+            let damage = Math.floor(attackerData.attack * 0.5);
+            defenderData.health -= damage;
+            defender.style.animation = 'attackAnimation 0.5s forwards'; // Animation on attack
+
+            if (defenderData.health <= 0) {
+                alert(`Defender has been defeated!`);
+                endGame();
+            }
+
+            updateStats(); // Update stats after attack
+            updateFigures();
+        }
+
+        function defenseOther() {
+            attackerData.attack = Math.floor(attackerData.attack * 0.8);
+            attacker.style.animation = 'defendAnimation 0.5s forwards'; // Animation on defense
+            alert(`Attacker: Attack reduced to ${attackerData.attack}`);
+
+            updateStats(); // Update stats after defense
+        }
+
+        function swapFigures() {
+            // Swap the positions and images of the attacker and defender
+            const tempPosition = attacker.style.left;
+            attacker.style.left = defender.style.left;
+            defender.style.left = tempPosition;
+
+            const temp = attackerData;
+            attackerData.name = defenderData.name;
+            defenderData.name = temp.name;
+
+            updateStats(); // Update stats after swapping
+            updateFigures();
+        }
+
+        function endGame() {
+            alert('Game Over!');
+            document.querySelector('.controls').innerHTML = '';
+        }
+
+        // Initial stats update
+        updateStats();
+    </script>
+</body>
+</html>
